@@ -64,6 +64,11 @@
 						<td>{{$sales->opd_name}}</td>
 						<td>Rs.{{number_format($sales->opd_charge,2)}}</td>
 					</tr>
+					<tr>
+						<td>{{$i++}}</td>
+						<td>Prescription Total</td>
+						<td>Rs.{{number_format($invoices->pre_total, 2)}}</td>
+					</tr>
 					@endforeach
 					@else
 					@foreach($invoices->packageSales()->get() as $sales)
@@ -74,22 +79,27 @@
 					</tr>
 					@endforeach
 					@endif
-
 					<tr>
 						<td></td>
 						<td></td>
-						<td><strong>Sub Total: </strong>$ {{number_format($invoices->sub_total, 2)}}</td>
+						<td><strong>Advance: </strong>Rs. {{number_format($invoices->pre_advance, 2)}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><strong>Sub Total: </strong>Rs. {{number_format($invoices->sub_total, 2)}}</td>
 					</tr>
 
 					<tr>
 						<td></td>
 						<td></td>
-						<td><strong>Discount: </strong>$ {{$invoices->discount}}</td>
+						<td><strong>Discount: </strong>Rs. {{($invoices->discount) ? $invoices->discount : 0.00}}</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td></td>
-						<td><strong>HST({{$setting->tax_percent}}%): </strong>Rs.{{number_format($invoices->tax_amount,2)}}</td>
+						<td><strong>HST({{$setting->tax_percent}}%):
+							</strong>Rs.{{number_format($invoices->tax_amount,2)}}</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -113,8 +123,19 @@
 	</div>
 </div>
 <br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div align="center">
-	<a href="{{url('/')}}" class="printbtn btn btn-primary" type='button' onclick="Function()"><span class="glyphicon glyphicon-print"></span> Print</a>
+	@php
+	$mobileNumber = $invoices->patient_phon;
+	$message = "Hi {$invoices->patient_fname} {$invoices->patient_lname},
+	your invoice amount is Rs. {$invoices->total_amount}.
+	Download here: {$pdfUrl}";
+	@endphp
+	<a href="https://wa.me/{{ $mobileNumber }}?text={{ urlencode($message) }}" target="_blank" class="btn btn-success">
+		<i class="fa fa-whatsapp"></i> Send on WhatsApp
+	</a>
+	<a href="{{url('/')}}" class="printbtn btn btn-primary" type='button' onclick="Function()"><span
+			class="glyphicon glyphicon-print"></span> Print</a>
 	<a href="{{url('invoice')}}" class="btn btn-default">Back</a>
 </div>
 

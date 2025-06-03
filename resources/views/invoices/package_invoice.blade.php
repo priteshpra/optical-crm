@@ -138,9 +138,7 @@
 				$('#comment').hide();
 				// $('#calculateBtn').hide();
 				//$('#patient_id :selected').attr('selected', false);
-				$('#bill').load({
-					!!json_encode(url('/package/sale')) !!
-				} + '/' + doctor_id);
+				$('#bill').load({!!json_encode(url('/package/sale')) !!} + '/' + doctor_id);
 			});
 
 			$('#patient_id').on('change', function() {

@@ -145,9 +145,7 @@
 <script>
 	function del(id) {
 		//alert(id);
-		$('#service_sales').load({
-			!!json_encode(url('/invoice/remove')) !!
-		} + '/' + id);
+		$('#service_sales').load({!!json_encode(url('/invoice/remove')) !!} + '/' + id);
 	}
 	$(document).ready(function() {
 
@@ -161,9 +159,7 @@
 			$('#tender').hide();
 			var service_id = $('#service_id').val();
 			//ajax
-			$('#service_sales').load({
-				!!json_encode(url('/invoice/sales')) !!
-			} + '/' + service_id);
+			$('#service_sales').load({!!json_encode(url('/invoice/sales')) !!} + '/' + service_id);
 		});
 
 		$('#patient_id').on('change', function() {

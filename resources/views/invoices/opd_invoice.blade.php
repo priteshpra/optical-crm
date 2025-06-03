@@ -9,7 +9,8 @@
 					</svg></a></li>
 			<li class="active">OPD Invoice</li>
 		</ol>
-	</div><br><!--/.row-->
+	</div><br>
+	<!--/.row-->
 	<!-- Modal -->
 	@if ($message = Session::get('success'))
 	<div class="alert alert-success alert-block">
@@ -30,7 +31,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>OPD Invoice</div>
+				<div class="panel-heading"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>OPD Invoice
+				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-8">
@@ -44,7 +46,8 @@
 									<select class="form-control select" name="doctor_id" id="doctor_id">
 										<option>Select Doctor:</option>
 										@foreach($doctors as $doctor)
-										<option value="{{$doctor->id}}">{{$doctor->employee->first_name}} {{$doctor->employee->last_name}}</option>
+										<option value="{{$doctor->id}}">{{$doctor->employee->first_name}}
+											{{$doctor->employee->last_name}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -53,7 +56,8 @@
 									<select class="form-control select" name="patient_id" id="patient_id" required>
 										<option>Select Patient:</option>
 										@foreach($patients as $patient)
-										<option value="{{$patient->id}}">ID: {{$patient->id}}. {{$patient->first_name}} {{$patient->last_name}}</option>
+										<option value="{{$patient->id}}">ID: {{$patient->id}}. {{$patient->first_name}}
+											{{$patient->last_name}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -68,18 +72,21 @@
 								</div>
 								<div class=" col-md-3 form-group">
 									<label>Invoice No:</label>
-									<input type="text" class="form-control" name="invoice_no" value="{{$setting->invoice_prefix}}{{$invoice_no}}" readonly>
+									<input type="text" class="form-control" name="invoice_no"
+										value="{{$setting->invoice_prefix}}{{$invoice_no}}" readonly>
 								</div>
 								<div id="payment" style="display: none;">
 
 									<div class="col-md-3 form-group">
 										<label>Discount :</label>
-										<input type="number" name="discount" placeholder="" class="form-control" id="discount"><br>
+										<input type="number" name="discount" placeholder="" class="form-control"
+											id="discount"><br>
 									</div>
 
 									<div class="col-md-3 form-group">
 										<label>Cash :</label>
-										<input type="number" name="cash" placeholder="" class="form-control" id="cash" required><br>
+										<input type="number" name="cash" placeholder="" class="form-control" id="cash"
+											required><br>
 									</div>
 								</div>
 
@@ -103,7 +110,8 @@
 							<p>--------------------------------------------------------------------</p>
 							<div class="row">
 								<div class="col-md-6" id="calculateBtn" style="display: none">
-									<button class="btn btn-primary" id="calculate"><span class="glyphicon glyphicon-ok"></span>Calculate</button> <br><br>
+									<button class="btn btn-primary" id="calculate"><span
+											class="glyphicon glyphicon-ok"></span>Calculate</button> <br><br>
 									<span id="msg"></span><br>
 
 								</div>
@@ -134,25 +142,23 @@
 
 			$('#doctor_id').on('change', function() {
 				var doctor_id = $('#doctor_id').val();
+				var patient_id = $('#patient_id').val();
 				//$('#payment').hide();
 				$('#tender').hide();
 				$('#complete').hide();
 				$('#comment').hide();
 				// $('#calculateBtn').hide();
 				//$('#patient_id :selected').attr('selected', false);
-				$('#bill').load({
-					!!json_encode(url('/invoice/opd')) !!
-				} + '/' + doctor_id);
+				// $('#bill').load({!!json_encode(url('/invoice/opd')) !!} + '/' + doctor_id + '/' + patient_id);
 			});
 
 			$('#patient_id').on('change', function() {
 				var patient_id = $('#patient_id').val();
+				var doctor_id = $('#doctor_id').val();
 				$('#payment').show();
 				$('#calculateBtn').show();
 				//$('#patient').load({!! json_encode(url('/invoice/patient'))!!}+'/'+patient_id);
-
-
-
+				$('#bill').load({!!json_encode(url('/invoice/opd')) !!} + '/' + doctor_id + '/' + patient_id);
 			});
 			$('#complete').on('click', '#complete', function() {
 				$('#submit').click();
@@ -165,6 +171,7 @@
 				var cash = $('#cash').val();
 				var discount = $('#discount').val();
 				var sub_total = $('#opd_charge').val();
+				var balance = $('#balance').val();
 				var tax = $('#tax_percent').val();
 				if (sub_total.length) {
 
@@ -172,8 +179,8 @@
 						if (discount) {
 							$('.total_field').hide();
 						}
-
-						var total = sub_total - discount;
+						var tsub = parseFloat(sub_total) + parseFloat(balance);
+						var total = tsub - discount;
 						var tax_amount = total * tax / 100;
 						var total_amount = total + tax_amount;
 						var tender_amount = cash - total_amount;
@@ -185,7 +192,7 @@
 							$('#msg').hide();
 							$('#complete').show();
 							$('#comment').show();
-							$('#tender').html('<strong>Sub Total: $' + sub_total + '</strong><br><strong>Discount:$' + discount + '</strong><br><b>------------------------------</b><br><strong>Taxable Amount:' + total + '</strong><br><strong>HST(' + tax + '%): $' + tax_amount + '</strong><br><b>-----------------------------<b><br><strong>Total: $' + total_amount + '</strong><br><strong>Cash: $ ' + cash + '</strong><br><strong>Return:$' + tender_amount + '</strong>');
+							$('#tender').html('<strong>Sub Total: $' + tsub + '</strong><br><strong>Discount:$' + discount + '</strong><br><b>------------------------------</b><br><strong>Taxable Amount:' + total + '</strong><br><strong>HST(' + tax + '%): $' + tax_amount + '</strong><br><b>-----------------------------<b><br><strong>Total: $' + total_amount + '</strong><br><strong>Cash: $ ' + cash + '</strong><br><strong>Return:$' + tender_amount + '</strong>');
 							$('#tender').show();
 						}
 					} else {

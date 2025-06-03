@@ -78,7 +78,7 @@ Route::group(array('middleware' => ['auth']), function () {
 	Route::get('invoice/patient/{patient_id}', ['as' => 'invoice.patient', 'uses' => 'InvoiceController@patient']);
 	Route::get('invoice/remove/{id}', ['as' => 'invoice.remove', 'uses' => 'InvoiceController@remove']);
 	Route::get('invoice/sales/{id}', ['as' => 'invoice.sale', 'uses' => 'InvoiceController@tempSales']);
-	Route::get('invoice/opd/{id}', ['as' => 'invoice.opd', 'uses' => 'OpdController@opdSales']);
+	Route::get('invoice/opd/{id}/{pid}', ['as' => 'invoice.opd', 'uses' => 'OpdController@opdSales']);
 	Route::get('invoice/report', ['as' => 'invoice.report', 'uses' => 'InvoiceController@report']);
 	Route::get('invoice/duplicate/{id}', ['as' => 'invoice.duplicate', 'uses' => 'InvoiceController@duplicate']);
 
@@ -142,4 +142,6 @@ Route::group(array('middleware' => ['auth']), function () {
 	Route::get('account/service', ['as' => 'account.service', 'uses' => 'AccountController@serviceReport']);
 	Route::get('account/opd', ['as' => 'account.opd', 'uses' => 'AccountController@opdReport']);
 	Route::get('account/package', ['as' => 'account.package', 'uses' => 'AccountController@packageReport']);
+
+	Route::post('appointment/updatedpf', ['as' => 'appointment.updatedpf', 'uses' => 'AppointmentController@updatedpf']);
 });

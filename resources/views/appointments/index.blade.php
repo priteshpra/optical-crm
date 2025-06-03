@@ -12,7 +12,8 @@
 			<li class="active">Icons</li>
 			<li>Appointment</li>
 		</ol>
-	</div><br><!--/.row-->
+	</div><br>
+	<!--/.row-->
 	@if ($message = Session::get('success'))
 	<div class="alert alert-success alert-block">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -31,10 +32,12 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Appointment Table<a class="btn btn-success pull-right" data-toggle="modal" href="#addAppointment"><span class="glyphicon glyphicon-plus"></span>Add Appointment</a></div>
+				<div class="panel-heading">Appointment Table<a class="btn btn-success pull-right" data-toggle="modal"
+						href="#addAppointment"><span class="glyphicon glyphicon-plus"></span>Add Appointment</a></div>
 				<div class="panel-body">
 					@if($appointments->count())
-					<table id="example" class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
+					<table id="example" class="table table-bordered table-striped table-condensed" cellspacing="0"
+						width="100%">
 						<thead>
 							<tr>
 								<th data-sortable="true">ID</th>
@@ -54,22 +57,37 @@
 								<td>{{$appointment->id}}</td>
 								<td>{{$appointment->name}}</td>
 								<td>{{$appointment->patient->first_name}} {{$appointment->patient->last_name}}</td>
-								<td>{{isset($appointment->doctor->employee) ? $appointment->doctor->employee->first_name : ''}} {{isset($appointment->doctor->employee) ? $appointment->doctor->employee->middle_name : ''}} {{isset($appointment->doctor->employee) ? $appointment->doctor->employee->last_name : ''}}</td>
+								<td>{{isset($appointment->doctor->employee) ? $appointment->doctor->employee->first_name
+									: ''}} {{isset($appointment->doctor->employee) ?
+									$appointment->doctor->employee->middle_name : ''}}
+									{{isset($appointment->doctor->employee) ? $appointment->doctor->employee->last_name
+									: ''}}</td>
 								<td>{{$appointment->description}}</td>
 								<td>{{$appointment->time}}</td>
 								<td>{{$appointment->appointment_date}}</td>
 								<td>
 									@if($appointment->status)
-									<a class="btn btn-sm btn-success" href="{{ route('appointment.edit',$appointment->id) }}"><span class=" glyphicon glyphicon-ok"></span> Completed</a>
+									<a class="btn btn-sm btn-success"
+										href="{{ route('appointment.edit',$appointment->id) }}"><span
+											class=" glyphicon glyphicon-ok"></span> Completed</a>
 									@else
-									<a class="btn btn-sm btn-warning" href="{{ route('appointment.edit',$appointment->id) }}"><span class=" glyphicon glyphicon glyphicon-refresh"> </span> Pending</a>
+									<a class="btn btn-sm btn-warning"
+										href="{{ route('appointment.edit',$appointment->id) }}"><span
+											class=" glyphicon glyphicon glyphicon-refresh"> </span> Pending</a>
 									@endif
 								</td>
-								<td><button class="edit-appointment btn btn-primary" data-info="{{$appointment->id}},{{$appointment->name}},{{$appointment->description}},{{$appointment->time}},{{$appointment->doctor_id}},{{$appointment->patient_id}} {{$appointment->working_date}}"><span class="glyphicon glyphicon-edit"></span> Edit
+								<td>
+									<button class="edit-appointment btn btn-primary"
+										data-info="{{$appointment->id}},{{$appointment->name}},{{$appointment->description}},{{$appointment->time}},{{$appointment->doctor_id}},{{$appointment->patient_id}} {{$appointment->working_date}}"><span
+											class="glyphicon glyphicon-edit"></span> Edit
+									</button>
+									<button class="pf-form btn btn-warning"
+										data-info="{{$appointment->id}},{{$appointment->name}},{{$appointment->description}},{{$appointment->time}},{{$appointment->doctor_id}},{{$appointment->patient_id}} {{$appointment->working_date}},{{ $pfData }}"><span
+											class="glyphicon glyphicon-eye-open"></span> PF
 									</button>
 									@permission('appointment.delete')
-									<button class="delete-modal btn btn-danger"
-										data-info="{{$appointment->id}}" id="deleteConfirm">
+									<button class="delete-modal btn btn-danger" data-info="{{$appointment->id}}"
+										id="deleteConfirm">
 										<span class="glyphicon glyphicon-trash"></span> Delete
 									</button>
 									@endpermission
@@ -84,7 +102,9 @@
 				</div>
 			</div>
 		</div>
-	</div><!--/.row-->
-</div><!--/.main-->
+	</div>
+	<!--/.row-->
+</div>
+<!--/.main-->
 
 @endsection

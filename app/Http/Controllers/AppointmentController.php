@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Prescription;
 
 class AppointmentController extends Controller
 {
@@ -19,8 +20,9 @@ class AppointmentController extends Controller
         $appointments = Appointment::get();
         $patients = Patient::get();
         $doctors = Doctor::get();
+        $pfData = Prescription::get();
         // dd($appointments);
-        return view('appointments.index', compact('appointments', 'patients', 'doctors'));
+        return view('appointments.index', compact('appointments', 'patients', 'doctors', 'pfData'));
         //
     }
 
@@ -108,6 +110,31 @@ class AppointmentController extends Controller
         $appointment = Appointment::find($request->id);
         $appointment->update($request->all());
         return back()->with('success', 'Appointment updated successfully');
+        //
+    }
+
+    /**
+     * Remove the updated pf from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatedpf(Request $request)
+    {
+        //return $request->all();
+        $this->validate($request, ['doctor_id' => 'required']);
+        if ($request->appointment_date) {
+            $request['appointment_date'] = date('Y-m-d', strtotime($request->appointment_date));
+        }
+        $appointment = Appointment::find($request->id);
+
+        Prescription::updateOrCreate(
+            ['patient_id' => $request->patient_id, 'doctor_id' => $request->doctor_id],
+            $request->all()
+        );
+
+        // $appointment->update($request->all());
+        return back()->with('success', 'Prescription updated successfully');
         //
     }
 
