@@ -64,7 +64,7 @@
 									: ''}}</td>
 								<td>{{$appointment->description}}</td>
 								<td>{{$appointment->time}}</td>
-								<td>{{$appointment->appointment_date}}</td>
+								<td>{{ date('d-m-Y', strtotime($appointment->appointment_date)) }}</td>
 								<td>
 									@if($appointment->status)
 									<a class="btn btn-sm btn-success"

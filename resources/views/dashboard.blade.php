@@ -16,7 +16,8 @@
         <div class="col-lg-12">
             <h2 class="page-header">Dashboard</h2>
         </div>
-    </div><!--/.row-->
+    </div>
+    <!--/.row-->
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -76,7 +77,8 @@
                 </div>
             </div>
         </div>
-    </div><!--/.row-->
+    </div>
+    <!--/.row-->
 
     <div class="row">
 
@@ -85,7 +87,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Today's Appointment</div>
                 <div class="panel-body">
-                    <table id="table1" class="display table table-bordered table-condensed table-hover" cellspacing="0" width="100%">
+                    <table id="table1" class="display table table-bordered table-condensed table-hover" cellspacing="0"
+                        width="100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -104,14 +107,20 @@
                                 <td>{{$i++}}</td>
                                 <td>{{$appointment->name}}</td>
                                 <td>{{$appointment->patient->first_name}} {{$appointment->patient->last_name}}</td>
-                                <td>{{$appointment->doctor->employee->first_name}} {{$appointment->doctor->employee->middle_name}} {{$appointment->doctor->employee->last_name}}</td>
+                                <td>{{$appointment->doctor->employee->first_name}}
+                                    {{$appointment->doctor->employee->middle_name}}
+                                    {{$appointment->doctor->employee->last_name}}</td>
                                 <td>{{$appointment->description}}</td>
                                 <td>{{$appointment->time}}</td>
                                 <td>
                                     @if($appointment->status)
-                                    <a class="btn-sm btn-success" href="{{ route('appointment.edit',$appointment->id) }}"><span class=" glyphicon glyphicon-ok"></span> Complete</a>
+                                    <a class="btn-sm btn-success"
+                                        href="{{ route('appointment.edit',$appointment->id) }}"><span
+                                            class=" glyphicon glyphicon-ok"></span> Complete</a>
                                     @else
-                                    <a class="btn-sm btn-warning" href="{{ route('appointment.edit',$appointment->id) }}"><span class=" glyphicon glyphicon-refresh"> </span> Pending</a>
+                                    <a class="btn-sm btn-warning"
+                                        href="{{ route('appointment.edit',$appointment->id) }}"><span
+                                            class=" glyphicon glyphicon-refresh"> </span> Pending</a>
                                     @endif
                                 </td>
                             </tr>
@@ -127,7 +136,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Today's OPD</div>
                 <div class="panel-body">
-                    <table id="example" class="display table table-bordered table-condensed table-hover" cellspacing="0" width="100%">
+                    <table id="example" class="display table table-bordered table-condensed table-hover" cellspacing="0"
+                        width="100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -143,12 +153,14 @@
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>{{$opd->invoice->patient->first_name}} {{$opd->invoice->patient->last_name}}</td>
-                                <td>{{$opd->doctor->employee->first_name}} {{$opd->doctor->employee->middle_name}} {{$opd->doctor->employee->last_name}}</td>
+                                <td>{{$opd->doctor->employee->first_name}} {{$opd->doctor->employee->middle_name}}
+                                    {{$opd->doctor->employee->last_name}}</td>
                                 <td>{{$opd->created_at}}</td>
                                 @if($opd->status == 1)
                                 <td><span class="btn-sm btn-success glyphicon glyphicon-ok"> Complete</span></td>
                                 @else
-                                <td><a class="btn-sm btn-warining" href="{{ route('doctor.edit',$opd->id) }}"><span class=" glyphicon glyphicon-refresh"> Pending</span></a> </span></td>
+                                <td><a class="btn-sm btn-warining" href="{{ route('doctor.edit',$opd->id) }}"><span
+                                            class=" glyphicon glyphicon-refresh"> Pending</span></a> </span></td>
                                 @endif
                             </tr>
                             @endforeach
@@ -204,7 +216,8 @@
         </div>
         <!-- Today collection ends -->
 
-    </div><!--/.row-->
+    </div>
+    <!--/.row-->
 </div>
 
 <!-- <div class="row">
@@ -394,8 +407,12 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table').DataTable();
-        $('#table1').DataTable();
+        $('#table').DataTable({
+        order: [[0, 'desc']]
+        });
+        $('#table1').DataTable({
+        order: [[0, 'desc']]
+        });
 
     });
 </script>

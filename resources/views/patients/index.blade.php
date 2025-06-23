@@ -51,7 +51,7 @@
 								<td>{{ $patient->id}}</td>
 								<td>{{$patient->first_name}} {{$patient->middle_name}} {{$patient->last_name}}</td>
 								<td>{{$patient->phone}}</td>
-								<td>{{$patient->district}}, {{$patient->location}}</td>
+								<td>{{$patient->location}}</td>
 								<td>{{$patient->email}}</td>
 								<td>{{$patient->service_type}}</td>
 								<td>

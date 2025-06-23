@@ -203,6 +203,14 @@
 
 					<div class="row">
 						<div class="col-md-4 form-group">
+							<label>Frame Charges (Rs):</label>
+							<input type="text" required name="framecharge" id="framecharge" class="form-control">
+						</div>
+						<div class="col-md-4 form-group">
+							<label>Lense Charges (Rs):</label>
+							<input type="text" required name="lensecharge" id="lensecharge" class="form-control">
+						</div>
+						<div class="col-md-4 form-group">
 							<label>Total (Rs):</label>
 							<input type="text" required name="total" id="total" class="form-control">
 						</div>

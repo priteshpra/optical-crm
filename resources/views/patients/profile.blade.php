@@ -43,7 +43,7 @@
 				<div class="panel-body">
 					<div class="col-md-6">
 						Patient Phone: {{ $patient->phone}}<br>
-						Patient Address: {{$patient->location}}, {{$patient->state}}, {{$patient->district}},{{$patient->country}}<br>
+						Patient Address: {{$patient->location}}<br>
 						@if($patient->relative_name)
 						Relatives Name: {{$patient->relative_name}}<br>
 						Relative Phone: {{$patient->relative_phone}}<br>
@@ -161,9 +161,7 @@
 		$('#doctorId').on('change', function() {
 			var id = $('#doctorId').val();
 			//ajax
-			$('#available_time').load({
-				!!json_encode(url('/days/')) !!
-			} + '/' + id);
+			$('#available_time').load({!!json_encode(url('/days/')) !!} + '/' + id);
 		});
 		$("#datepicker").datepicker();
 		$('#datepicker').change(function() {

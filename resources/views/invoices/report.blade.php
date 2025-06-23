@@ -8,7 +8,8 @@
 					</svg></a></li>
 			<li class="active">Invoice Report</li>
 		</ol>
-	</div><br><!--/.row-->
+	</div><br>
+	<!--/.row-->
 	<!-- Modal -->
 	@if ($message = Session::get('success'))
 	<div class="alert alert-success alert-block">
@@ -39,14 +40,17 @@
 								</select>
 							</div>
 							<div class="col-md-3">
-								<input type="text" class="datepicker form-control" placeholder="From Date" name="starting_date" data-date-end-date="0d">
+								<input type="text" class="datepicker form-control" placeholder="From Date"
+									name="starting_date" data-date-end-date="0d">
 							</div>
 
 							<div class="col-md-3">
-								<input type="text" class="datepicker1 form-control" placeholder="To Date" name="ending_date" data-date-end-date="0d">
+								<input type="text" class="datepicker1 form-control" placeholder="To Date"
+									name="ending_date" data-date-end-date="0d">
 							</div>
 							<div class="col-md-3">
-								<button class="btn btn-danger"><span class="glyphicon glyphicon-search"></span>Search Report</button>
+								<button class="btn btn-danger"><span class="glyphicon glyphicon-search"></span>Search
+									Report</button>
 							</div>
 						</form>
 					</div>
@@ -84,12 +88,15 @@
 								<td>Return: Rs.{{$return->return_amount}}</td>
 								@endforeach
 								@else
-								<td><a class="btn btn-sm btn-primary invoiceReturn" data-return="{{$invoice->id}}, {{$invoice->invoice_no}}, {{number_format($invoice->total_amount)}}"><span class="glyphicon glyphicon-share-alt"></span>Return Bill</a>
+								<td><a class="btn btn-sm btn-primary invoiceReturn"
+										data-return="{{$invoice->id}}, {{$invoice->invoice_no}}, {{number_format($invoice->total_amount)}}"><span
+											class="glyphicon glyphicon-share-alt"></span>Return Bill</a>
 								</td>
 								@endif
 
 								<td>
-									<a href="{{route('invoice.duplicate', $invoice->id)}}" class=" btn-sm btn btn-primary">Re-Print Bill</a>
+									<a href="{{route('invoice.duplicate', $invoice->id)}}"
+										class=" btn-sm btn btn-primary">Re-Print Bill</a>
 								</td>
 
 							</tr>
@@ -168,6 +175,7 @@
 
 				$(document).ready(function() {
 					$('#dataPrint').DataTable({
+						order: [[0, 'desc']],
 						dom: 'Bfrtip',
 						buttons: [
 							'excel', 'pdf', 'print'
